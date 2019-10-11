@@ -1,0 +1,70 @@
+﻿
+#priorityscroll{
+  position: relative; /* change to "fixed" if you want a fixed menu bar */
+	overflow: hidden;
+	/*z-index: 10000;*/
+  left: 0;
+  top: 20px;
+  width: 100%;
+  padding: 5px;
+}
+
+#priorityscroll ul{
+	margin: 0;
+	padding: 0;
+  display: flex;
+	/*font: 10px 'Bitter', sans-serif;*/ /* #priorityscroll font (Bitter is Google font) */
+	/*text-transform: uppercase;*/
+	/*list-style-type: none;*/
+  position: relative;
+  min-width: 100%;
+   width: 100%;
+  /*z-index: 1000;*/
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	-webkit-transition: -webkit-transform 1s;
+	transition: transform 1s;
+
+}
+
+
+html.can-touch #priorityscroll ul{
+	overflow: auto;
+}
+
+
+#priorityscroll li{
+	margin: 0;
+	display: flex;
+	flex: none;
+	float: left; /* non flex browsers  */
+   border-bottom: 2px solid #079fc9;
+  background-color:#e6f4cb;
+  /*background-color:#d0f4cb,cbebf4,f7d47b,e6f4cb;*/
+}
+
+
+
+html.can-touch #priorityscroll li a:hover{ /* disable hover effect on touch screen input */
+	background: inherit;
+}
+
+
+
+/* ####### responsive layout CSS ####### */
+
+
+@media (max-width: 600px) { /* 2nd breaking point */
+
+	#priorityscroll a, #priorityscroll li a{
+		padding: 15px; /*padding inside each link */
+	}
+
+}
+
+@media (max-width: 480px) { /* 3rd breaking point */
+  #priorityscroll a, #priorityscroll li a{
+    font-size: 1em;
+  }
+}

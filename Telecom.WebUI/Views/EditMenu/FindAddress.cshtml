@@ -1,0 +1,127 @@
+﻿@model Telecom.Application.ViewModels.AddressDetail
+<form id="AddressForm">
+    <div class="container DivFindAddress">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group form-group-sm">
+                            <label for="exampleFormControlInput1">Address Number:</label>
+                            <input type="text" class="form-control input-sm" asp-for="@Model.AddressNbr" id="AddressNumber" placeholder="Address Number">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group form-group-sm">
+                            <label for="exampleFormControlSelect1">Name:</label>
+                            <input type="text" class="form-control input-sm" id="Name" asp-for="@Model.Name" placeholder="Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group form-group-sm">
+                            <label for="exampleFormControlSelect2">Street:</label>
+                            <input type="text" class="form-control input-sm" id="Street" asp-for="@Model.Street" placeholder="Street">
+                        </div>
+                    </div>
+                    @*<div class="col-sm-3">
+                            <div class="form-group form-group-sm">
+                                <label for="exampleFormControlTextarea1">Number:</label>
+                                <input type="text" class="form-control input-sm" id="StreetNbr" asp-for="@Model.StreetNbr" placeholder="Number">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group form-group-sm">
+                                <label for="exampleFormControlTextarea1">Box:</label>
+                                <input type="text" class="form-control input-sm" id="StreetBox" asp-for="@Model.StreetBox" placeholder="Box">
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <br /><br />
+                <div class="row">
+                    <div class="custom-control custom-checkbox col-sm-12">
+                        <input type="checkbox" name="CustomerType" value="1" id="Customer" class="custom-control-input" />
+                        <label for="Customer" class="custom-control-label">Customer</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="CustomerType" value="2" id="Agent" class="custom-control-input" />
+                        <label for="Agent" class="custom-control-label">Agent</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="CustomerType" value="3" id="Carrier" class="custom-control-input" />
+                        <label for="Carrier" class="custom-control-label">Carrier</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="CustomerType" value="4" id="Incasso" class="custom-control-input" />
+                        <label for="Incasso" class="custom-control-label">Incasso</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="CustomerType" value="5" id="Invoice" class="custom-control-input" />
+                        <label for="Invoice" class="custom-control-label">Invoice</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="CustomerType" value="6" id="Location" class="custom-control-input" />
+                        <label for="Location" class="custom-control-label">Location</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="CustomerType" value="7" id="Supplier" class="custom-control-input" />
+                        <label for="Supplier" class="custom-control-label">Supplier</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" name="CustomerType" value="8" id="type" class="custom-control-input" />
+                        <label for="type" class="custom-control-label">type</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-7 form-group-sm">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="form-group form-group-sm">
+                            <label for="exampleFormControlTextarea1">Zipcode:</label>
+                            <input type="text" class="form-control input-sm" id="Zipcode" asp-for="@Model.Zipcode" placeholder="Zipcode">
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group form-group-sm">
+                            <label for="exampleFormControlTextarea1">Zipsuffix:</label>
+                            <input type="text" class="form-control input-sm" id="Zipsuffix" asp-for="@Model.Zipsuffix" placeholder="Zipsuffix">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-7 form-group-sm">
+                <label for="exampleFormControlTextarea1">City:</label>
+                <input type="text" class="form-control input-sm" id="City" asp-for="@Model.City" placeholder="City">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-7 form-group-sm">
+                <label for="exampleFormControlTextarea1">Remark:</label>
+                <input type="text" class="form-control input-sm" id="Remark" asp-for="@Model.Remark" placeholder="Remark">
+            </div>
+        </div>
+    </div>
+</form>
+

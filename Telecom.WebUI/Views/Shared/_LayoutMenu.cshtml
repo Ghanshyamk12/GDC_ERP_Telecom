@@ -1,0 +1,821 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Telecom.Web</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+
+    <style>
+        /* for chrome */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+
+        /* for mozilla */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .style4 {
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            border-style: solid;
+            border-width: 1px;
+            border-color: darkgray;
+            border-radius: 4px;
+            /*box-shadow: 10px 10px 10px rgba( 136, 136, 136, 0.3 );*/
+            height: 25px;
+            width: 60px;
+        }
+
+        .style3 {
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            border-style: solid;
+            border-width: 1px;
+            border-color: darkgray;
+            border-radius: 4px;
+            /*box-shadow: 10px 10px 10px rgba( 136, 136, 136, 0.3 );*/
+            height: 25px;
+            width: 200px;
+        }
+
+        a:hover, a:focus {
+            text-decoration: none;
+            outline: none;
+        }
+
+        .tab .nav-tabs {
+            border: none;
+            /*border-bottom: 2px solid #079fc9;*/
+            margin: 0;
+            width: 100%;
+            /*background-color:#cbd88c;*/
+        }
+
+            .tab .nav-tabs li a {
+                padding: 5px 5px;
+                margin: 0 10px -1px 0;
+                font-size: 12px;
+                font-weight: bold;
+                color: #293241;
+                /*border: 2px solid #e6e5e1;*/
+                border-bottom: none;
+                border-radius: 5px 5px 0 0;
+                z-index: 1;
+                position: relative;
+                transition: all 0.3s ease 0s;
+            }
+
+                .tab .nav-tabs li a:hover,
+                .tab .nav-tabs li.active a {
+                    background: #fff;
+                    color: #079fc9;
+                    border: 2px solid #079fc9;
+                    border-bottom-color: transparent;
+                }
+
+                .tab .nav-tabs li a:before {
+                    content: "";
+                    display: normal;
+                    height: 2px;
+                    background: #fff;
+                    position: absolute;
+                    bottom: -2px;
+                    left: 0;
+                    right: 0;
+                    transform: scaleX(0);
+                    transition: all 0.3s ease-in-out 0s;
+                }
+
+                .tab .nav-tabs li.active a:before,
+                .tab .nav-tabs li a:hover:before {
+                    transform: scaleX(1);
+                }
+
+        .tab .tab-content {
+            padding: 5px;
+            font-size: 12px;
+            position: relative;
+        }
+
+        .style2 {
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .ui-dialog {
+            top: 0;
+            left: 0;
+            padding: .2em;
+            border: 1px;
+        }
+
+            .ui-dialog .ui-dialog-titlebar {
+                border: 1px;
+                background: #336699;
+                color: white;
+            }
+
+            .ui-dialog .ui-dialog-content {
+                border-color: #336699;
+                padding: 20px;
+                font-size: 13px;
+                background-color: #d9edf7;
+                overflow: auto;
+            }
+
+        .ui-draggable-handle {
+            -ms-touch-action: none;
+            touch-action: none;
+        }
+
+        .ui-dialog-titlebar-close {
+            background: url('themes/base/images/ui-icons_888888_256x240.png') repeat scroll -93px -128px white;
+            border: medium none;
+        }
+
+            .ui-dialog-titlebar-close:hover {
+                background: url('themes/base/images/ui-icons_222222_256x240.png') repeat scroll -93px -128px white;
+            }
+    </style>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <link rel="stylesheet" href="~/lib/jquery-ui/themes/base/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/lib/jqgrid/css/ui.jqgrid.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/MyStyle.css" />
+</head>
+<body class="GDC">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm main-navigation container">
+            <div id="header_outer" role="navigation">
+                <div class="scrollDiv" id="Scrollheader" style="height: 32px; overflow: visible;">
+                    <ul class="navbar-nav flex-grow-1 ">
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    File <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">New</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Address</a>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#" class="dropdown-item">Address...</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#" class="dropdown-item">ACN AT Customer</a></li>
+                                                            <li><a href="#" class="dropdown-item">Other</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="dropdown-item">Address Link...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Data...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Flash remark</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Bookkeeping</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Invoice...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Payment...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Invoice Discount...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">General</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">General Pricing...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Call Discount...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Pincode</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Pincode identification...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Pincode Callpricelist...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Tarif Exception...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Destination</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Destination...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Destination lookup...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Prefix...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Tap 3 Code...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Call Discount</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">List...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Percentage...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Definition...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Assignment...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Free Calls</a>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#" class="dropdown-item">Defination</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#" class="dropdown-item">By Business...</a></li>
+                                                            <li><a href="#" class="dropdown-item">By Destination...</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="dropdown-item">Assignment</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Pricelists</a>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#" class="dropdown-item">Call</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#" class="dropdown-item">List...</a></li>
+                                                            <li><a href="#" class="dropdown-item">Price...</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="dropdown-item">Call Translation...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Bankfile</a>
+                                                <ul class="dropdown-menu"></ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Manaual Log/Task</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">On New Event...</a></li>
+                                                    <li><a href="#" class="dropdown-item">On Current Event...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#" class="dropdown-item">RT Ticket</a></li>
+                                            <li class="dropdown-divider"></li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Product</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">All In One...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Always ADSL...</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Edit</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Address</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Address...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Link...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Data...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Flash remark</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Bookkeeping</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Invoice Condition...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Invoice...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Payment...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Payment assignment...</a></li>
+
+                                                    <li><a href="#" class="dropdown-item">Invoice Discount...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Invoice group...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Invoice group Description...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Accountancy Bookdescriptions...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">General</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">General Pricing...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Call Discount...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Pincode</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Pincode identification...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Callpricelist...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Tarif Exception...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Destination</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Destination lookup...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Prefix...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Tap 3 Code...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Call Discount</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Percentage...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Definition...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Free Calls</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Defination</a></li>
+                                                    <li><a href="#" class="dropdown-item">Assignment</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Pricelists</a>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#" class="dropdown-item">Call</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#" class="dropdown-item">List...</a></li>
+                                                            <li><a href="#" class="dropdown-item">Price...</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a href="#" class="dropdown-item">Call Translation...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-item">Log/Task...</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Delete</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Address</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Address...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Link...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Data...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Location...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Address Flash remark</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Bookkeeping</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Invoice...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Payment...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Payment assignment...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">General</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">General Pricing...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Priced Items...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Call Discount...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Pincode</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Pincode identification...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Callpricelist...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Tarif Exception...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Destination</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Prefix...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Tap 3 Code...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Call Discount</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Percentage...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Definition...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Free Calls</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Defination</a></li>
+                                                    <li><a href="#" class="dropdown-item">Assignment</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Pricelists</a>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown-submenu">
+                                                        <a href="#" class="dropdown-item">Call</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#" class="dropdown-item">Price...</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Add</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" class="dropdown-item" href="#">Location...</a></li>
+                                            <li><a tabindex="-1" class="dropdown-item" href="#">Agent...</a></li>
+                                            <li><a tabindex="-1" class="dropdown-item" href="#">Pincode Callpricelist...</a></li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Open invoice to Credit Control File</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Selected Customer</a></li>
+                                                    <li><a href="#" class="dropdown-item">By Files...</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="#" class="dropdown-item">Import</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">CDR...</a></li>
+                                            <li><a href="#" class="dropdown-item">CallPricelist...</a></li>
+                                            <li><a href="#" class="dropdown-item">Premium SMS File</a></li>
+                                            <li><a class="dropdown-item" href="#">CODA file</a></li>
+                                            <li><a href="#" class="dropdown-item">SIM Card Feedback</a></li>
+                                            <li><a href="#" class="dropdown-item">High Usage Report</a></li>
+                                            <li><a class="dropdown-item" href="#">MVNO Files...</a></li>
+                                            <li><a href="#" class="dropdown-item">Completed Tasks...</a></li>
+                                            <li><a href="#" class="dropdown-item">IN Platform Files...</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Export</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Bookkeeping</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Payment...</a></li>
+                                                    <li class="dropdown-divider"></li>
+                                                    <li><a href="#" class="dropdown-item">Invoice Statistics...</a></li>
+                                                    <li class="dropdown-divider"></li>
+                                                    <li><a href="#" class="dropdown-item">VAT Declaration...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#" class="dropdown-item">CallPricelist</a></li>
+                                            <li class="dropdown-divider"></li>
+                                            <li><a href="#" class="dropdown-item">Grid values</a></li>
+                                            <li class="dropdown-divider"></li>
+                                            <li><a href="#" class="dropdown-item">Agent Internet file...</a></li>
+                                            <li><a href="#" class="dropdown-item">Calling Internet file...</a></li>
+                                            <li class="dropdown-divider"></li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Sim Card Requests</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Deliverings...</a></li>
+                                                    <li><a href="#">Activations...</a></li>
+                                                    <li><a href="#">Modifications...</a></li>
+                                                    <li><a href="#">Manual Modifications...</a></li>
+                                                    <li><a href="#">Terminations...</a></li>
+                                                    <li><a href="#">Rejections...</a></li>
+                                                    <li class="dropdown-divider"></li>
+                                                    <li><a href="#">Add Prepaid amount...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#" class="dropdown-item">MVNO...</a></li>
+                                            <li><a href="#" class="dropdown-item">IN Platform files...</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Print</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" class="dropdown-item" href="#">Invoices...</a></li>
+                                            <li><a class="dropdown-item" href="#">Calls...</a></li>
+                                            <li><a class="dropdown-item" href="#">Invoice + Calls...</a></li>
+                                            <li><a class="dropdown-item" href="#">Split Billing...</a></li>
+                                            <li class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="#">Task...</a></li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">SIM Card Requests</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#" class="dropdown-item">Deliverings...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Activations...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Modifications...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Manual Modifications...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Desactivations...</a></li>
+                                                    <li><a href="#" class="dropdown-item">Rejections...</a></li>
+                                                    <li class="dropdown-item"></li>
+                                                    <li><a href="#" class="dropdown-item">Add Prepaid amount...</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Subscription</a>
+                                                <ul class="dropdown-menu"></ul>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="#" class="dropdown-item">Welcome Letter</a>
+                                                <ul class="dropdown-menu"></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" href="#">Exit</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    Edit <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Find</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" tabindex="-1" href="#">Address...</a></li>
+                                            <li><a class="dropdown-item" href="#">Address Data...</a></li>
+                                            <li><a class="dropdown-item" href="#">Invoice...</a></li>
+                                            <li><a class="dropdown-item" href="#">Payment...</a></li>
+                                            <li><a class="dropdown-item" href="#">Pincode...</a></li>
+                                            <li><a class="dropdown-item" href="#">SIM Card...</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Copy</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">View</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" class="dropdown-item" href="#">Address to be priced(calls)...</a></li>
+                                            <li><a tabindex="-1" class="dropdown-item" href="#">Emergency Address to be priced...</a></li>
+                                            <li class="dropdown-divider"></li>
+                                            <li><a href="#" class="dropdown-item">Address to be Inviced (calls)...</a></li>
+                                            <li><a href="#" class="dropdown-item">MVNO Simcard feedbackoverview...</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Empty Credit Control File</a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Payment Blocking...</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Unblock Print Invoice Flag</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" class="dropdown-item" href="#">Creditnote Proposal</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#" class="dropdown-item">Address..</a></li>
+                                            <li><a href="#" class="dropdown-item">All...</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    Execute <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" href="#">Pricing...</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" asp-action="Index" asp-controller="Invoice">Invoicing...</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" href="#">Reverse billing...</a>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item" href="#">Simulation</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a tabindex="-1" class="dropdown-item" href="#">Pricing...</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item" href="#">Batch</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Insert Addresses..</a></li>
+                                            <li><a class="dropdown-item" href="#">Insert Pincodes...</a></li>
+                                            <li><a class="dropdown-item" href="#">Insert Internal Portings...</a></li>
+                                            <li><a class="dropdown-item" href="#">Porting of Calls</a></li>
+                                            <li><a class="dropdown-item" href="#">Assign Sim Cards...</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" href="#">Simcard Termination Requests...</a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" href="#">Generate reminders...</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" href="#">Fraude...</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    Listing <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item" href="#">Bookkepping</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="#">Invoice Summary...</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="#">Billrun Statistics...</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="#">Credit Control...</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="#">Finacial Conditions...</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="#">VAT Declaration...</a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="#">Aging Balance...</a>
+                                            </li>
+                                            <li class="dropdown-divider"></li>
+
+                                            <li class="dropdown-submenu">
+                                                <a class="dropdown-item" href="#">Accountancy Information</a>
+                                                <ul class="dropdown-menu">
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item" href="#">Order by Business</a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item" href="#">Order by Customer Origin</a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item" href="#">Order by Invoice Group</a>
+                                                    </li>
+                                                    <li class="dropdown">
+                                                        <a class="dropdown-item" href="#">Order by Accountancy</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a class="dropdown-item" href="#">Accountancy Descriptions</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-item" href="#">Filenames...</a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    Statistics <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Calls...</a>
+                                    <a class="dropdown-item" href="#">Carriers...</a>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    Technical <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">SQL Debugging</a>
+                                    <a class="dropdown-item" href="#">Show SQL Errors</a>
+                                    <a class="dropdown-item" asp-action="ParmitDatabaseSwap" asp-controller="Technical">Permit Database Swap</a>
+                                    <a class="dropdown-item" href="#">Users...</a>
+                                    <a class="dropdown-item" href="#">Types...</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Batch Files</a>
+                                    <a class="dropdown-item" href="#">Backup Tables..</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    User <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Autostart With Tasks</a>
+                                    <a class="dropdown-item" href="#">Short Searchlist</a>
+                                    <a class="dropdown-item" href="#">Birthday...</a>
+                                    <a class="dropdown-item" href="#">Username...</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Log On With Password..</a>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <a id="dLabel" role="button" data-toggle="dropdown" class="btn btnMenu" data-target="#">
+                                    Info <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Show User By Number..</a>
+                                    <a class="dropdown-item" href="#">Customer Color Information..</a>
+                                    <a class="dropdown-item" href="#">Abount</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="logout">
+                <a asp-action="logout" asp-controller="Account">
+                    <img src="~/favicons/logout.png" alt="Logout" id="imgLogout" title="Logout" />
+                </a>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted footer_outer">
+        <div class="container">
+            &copy; 2019 - Telecom - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    @if (ViewBag.JqGrid == "free-jqgrid")
+    {
+        <script src="~/lib/free-jqgrid/js/i18n/grid.locale-en.js"></script>
+        <script src="~/lib/free-jqgrid/js/jquery.jqgrid.min.js"></script>
+    }
+    else
+    {
+        <script src="~/lib/jqgrid/js/i18n/grid.locale-en.js"></script>
+        <script src="~/lib/jqgrid/js/jquery.jqGrid.min.js"></script>
+    }
+    <script src="~/js/site.js"></script>
+    <script>
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                document.getElementById("Scrollheader").style.height = "32px";
+            } else {
+                document.getElementById("Scrollheader").style.height = "32px";
+            }
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

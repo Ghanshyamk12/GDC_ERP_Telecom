@@ -1,0 +1,668 @@
+﻿@model Telecom.Application.ViewModels.DefaultViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/css/priorityscroll.css" rel="stylesheet" />
+<script src="~/js/priorityscrolling.js"></script>
+
+
+<script>
+
+    var hdnflag = $('#hdnCheck').val();
+    if (hdnflag == 0) {
+        $('#liLoanApp').addClass("active");
+    }
+
+    $(document).ready(function () {
+        $("ul.housetab").on("click", "li", function () {
+            var url = $(this).find("span.viewpath").text();
+            //var url = "/HouseLoan/Loan";
+            $.get(url, function (data) {
+                $("#contacts").html(data);
+            });
+        });
+
+        $("ul li").on("click", function () {
+            $("ul li").removeClass("active");
+            $(this).addClass("active");
+        });
+
+
+    });
+
+</script>
+@{
+    string[] sTabs = new string[] { };
+    if (ViewBag.TabsToDisplay != null)
+    {
+        sTabs = ViewBag.TabsToDisplay as string[];
+    }
+    int Check = 0;
+}
+
+<div class="row" id="divCustomerDetails">
+    <input type="text" asp-for="@Model.AddressNbr" class="form-control col-sm-2 input-sm" />
+    <input type="text" asp-for="@Model.CustomerName" class="form-control col-sm-4 input-sm" />
+    <input type="text" asp-for="@Model.CustomerAddress" class="form-control col-sm-4 input-sm" />
+    <input type="button" value="Search" class="col-md-2" id="btnSearch" />
+</div>
+<div class="messagealert" id="alert_container">
+</div>
+<div class="tab">
+    <div id="priorityscroll">
+        <ul id="MyTabs" class="nav nav-tabs tab">
+            <li id="liLoanApp" class="active"><a class="active" role="tab" data-toggle="tab" href="#tabLogon">Logon</a></li>
+            <li id="liPropDetails"><a role="tab" data-toggle="tab" href="#tabAddress">Address</a></li>
+            <li id="liEmpIncDetails"><a role="tab" data-toggle="tab" href="#tabBookkeeping">Bookkeeping</a></li>
+            <li><a role="tab" data-toggle="tab" href="#tabBusiness">Business</a></li>
+            <li><a role="tab" data-toggle="tab" href="#Pricelists">Pricelists</a></li>
+            <li><a role="tab" data-toggle="tab" href="#tabStock">Stock</a></li>
+            <li><a role="tab" data-toggle="tab" href="#Log">Log</a></li>
+            <li><a role="tab" data-toggle="tab" href="#Reports">Reports</a></li>
+            <li><a role="tab" data-toggle="tab" href="#Agents">Agents</a></li>
+            <li><a role="tab" data-toggle="tab" href="#InPlatForm">IN Platform</a></li>
+            <li><a role="tab" data-toggle="tab" href="#MVNO">MVNO</a></li>
+            @Html.Hidden("CheckValue", Check, new { @id = "hdnCheck" })
+        </ul>
+
+        <div class="tab-content tabs">
+            <div role="tabpanel" id="tabLogon" class="tab-pane fade active show">
+                @{
+                    await Html.RenderPartialAsync("_Logon.cshtml", Model);
+                }
+            </div>
+            <div role="tabpanel" id="tabAddress" class="tab-pane fade">
+                @{
+                    await Html.RenderPartialAsync("_Address.cshtml");
+                }
+            </div>
+            <div role="tabpanel" id="tabBookkeeping" class="tab-pane fade">
+                <div class="tab">
+                    <ul class="nav nav-tabs tab">
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#tabkeppingConditions" style="padding: 5px 5px">Conditions</a>
+                        </li>
+                        <li><a role="tab" data-toggle="tab" href="#tabkeppingInvoices" style="padding: 5px 5px">Invoices</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabkeppingPayments" style="padding: 5px 5px">Payments</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabkeppingPaymentsAssingment" style="padding: 5px 5px">Payments Assignment</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabkeppingInvoiceGroups" style="padding: 5px 5px">Invoice Groups</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabkeppingBankFile" style="padding: 5px 5px">Bank File</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabkeppingReminderWhiteList" style="padding: 5px 5px">Reminders/Whitelist</a></li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="tabkeppingConditions" class="tab-pane fade in active">
+                            @{
+                                await Html.RenderPartialAsync("_Conditions.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabkeppingInvoices" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("_Invoices.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabkeppingPayments" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("_Payments.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabkeppingPaymentsAssingment" class="tab-pane fade in">
+                            @{
+                                await Html.RenderPartialAsync("_PaymentAssignment.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabkeppingInvoiceGroups" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("_InvoiceGroups.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabkeppingBankFile" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("_BankFiles.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabkeppingReminderWhiteList" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("_ReminderWhiteList.cshtml");
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" id="tabBusiness" class="tab-pane fade">
+                <div class="tab">
+                    <ul class="nav nav-tabs tab">
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#tabGeneral" style="padding: 5px 5px">General</a>
+                        </li>
+                        <li><a role="tab" data-toggle="tab" href="#tabCalling" style="padding: 5px 5px">Calling</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabADSL" style="padding: 5px 5px">ADSL</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabAgents" style="padding: 5px 5px">Agent</a></li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="tabGeneral" class="tab-pane fade in active">
+                            <div class="tab">
+                                <ul class="nav nav-tabs tab">
+                                    <li>
+                                        <a role="tab" data-toggle="tab" href="#tabPricing" style="padding: 5px 5px">Pricing</a>
+                                    </li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallDiscount" style="padding: 5px 5px">Call Discount</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabFreeCalls" style="padding: 5px 5px">Free Calls</a></li>
+                                </ul>
+                                <div class="tab-content tabs">
+                                    <div role="tabpanel" id="tabPricing" class="tab-pane fade in active">
+                                        @{
+                                            await Html.RenderPartialAsync("_GeneralPricing.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabCallDiscount" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("_GeneralCallDisocunt.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabFreeCalls" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("_GeneralFreeCalls.cshtml");
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" id="tabCalling" class="tab-pane fade">
+                            <div class="tab">
+                                <ul class="nav nav-tabs tab">
+                                    <li>
+                                        <a role="tab" data-toggle="tab" href="#tabCallingPincode" style="padding: 5px 5px">Pincode</a>
+                                    </li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingPincodeData" style="padding: 5px 5px">Pincode Data</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingCallPriceList" style="padding: 5px 5px">Call PriceList</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingFreeCalls" style="padding: 5px 5px">Free Calls</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingCalls" style="padding: 5px 5px">Calls</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingCallDetails" style="padding: 5px 5px">Call Details</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingData" style="padding: 5px 5px">Data</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingSimCard" style="padding: 5px 5px">SIM Card</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabCallingBundle" style="padding: 5px 5px">Bundle</a></li>
+                                </ul>
+                                <div class="tab-content tabs">
+                                    <div role="tabpanel" id="tabCallingPincode" class="tab-pane fade active">
+                                        @{
+                                            await Html.RenderPartialAsync("_CallingPincode.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingPincodeData" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("_CallingPincodeData.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingCallPriceList" class="tab-pane fade in">
+                                        @{
+                                            await Html.RenderPartialAsync("_CallingCallPriceList.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingFreeCalls" class="tab-pane fade in ">
+                                        <div class="tab">
+                                            <ul class="nav nav-tabs tab">
+                                                <li>
+                                                    <a role="tab" data-toggle="tab" href="#tabRegularFreeCalls" style="padding: 5px 5px">Regular Free Calls</a>
+                                                </li>
+                                                <li><a role="tab" data-toggle="tab" href="#tabFreeCallsPack" style="padding: 5px 5px">Free Calls Pack</a></li>
+                                            </ul>
+                                            <div class="tab-content tabs">
+                                                <div role="tabpanel" id="tabRegularFreeCalls" class="tab-pane fade in active">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_RegularFreeCalls.cshtml");
+                                                    }
+                                                </div>
+                                                <div role="tabpanel" id="tabFreeCallsPack" class="tab-pane fade">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_FreeCallsPack.cshtml");
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingCalls" class="tab-pane fade">
+                                        <div class="tab">
+                                            <ul class="nav nav-tabs tab">
+                                                <li>
+                                                    <a role="tab" data-toggle="tab" href="#tabRegularCalls" style="padding: 5px 5px">Regular Calls</a>
+                                                </li>
+                                                <li><a role="tab" data-toggle="tab" href="#tabEmergencyCalls" style="padding: 5px 5px">Emergency Calls</a></li>
+                                            </ul>
+                                            <div class="tab-content tabs">
+                                                <div role="tabpanel" id="tabRegularCalls" class="tab-pane fade in active">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_RegularCalls.cshtml");
+                                                    }
+                                                </div>
+                                                <div role="tabpanel" id="tabEmergencyCalls" class="tab-pane fade">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_emergencyCalls.cshtml");
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingCallDetails" class="tab-pane fade">
+                                        <div class="tab">
+                                            <ul class="nav nav-tabs tab">
+                                                <li>
+                                                    <a role="tab" data-toggle="tab" href="#tabCallDetailsCallTrace" style="padding: 5px 5px">Call Trace</a>
+                                                </li>
+                                                <li><a role="tab" data-toggle="tab" href="#tabCallDetailsReverseBilling" style="padding: 5px 5px">Reverse Billing</a></li>
+                                            </ul>
+                                            <div class="tab-content tabs">
+                                                <div role="tabpanel" id="tabCallDetailsCallTrace" class="tab-pane fade in active">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_CallDetailsCallTrace.cshtml");
+                                                    }
+                                                </div>
+                                                <div role="tabpanel" id="tabCallDetailsReverseBilling" class="tab-pane fade">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_CallDetailsReverseBilling.cshtml");
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingData" class="tab-pane fade">
+                                        <div class="tab">
+                                            <ul class="nav nav-tabs tab">
+                                                <li>
+                                                    <a role="tab" data-toggle="tab" href="#tabDataGPRS" style="padding: 5px 5px">GPRS</a>
+                                                </li>
+                                                <li><a role="tab" data-toggle="tab" href="#tabDataReverseBilling" style="padding: 5px 5px">Reverse Billing</a></li>
+                                            </ul>
+                                            <div class="tab-content tabs">
+                                                <div role="tabpanel" id="tabDataGPRS" class="tab-pane fade in active">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_DataGPRS.cshtml");
+                                                    }
+                                                </div>
+                                                <div role="tabpanel" id="tabDataReverseBilling" class="tab-pane fade">
+                                                    @{
+                                                        await Html.RenderPartialAsync("_DataReverseBilling.cshtml");
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingSimCard" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("_CallingSimCard.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabCallingBundle" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("_CallingBundle.cshtml");
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" id="tabADSL" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("_Payments.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabAgents" class="tab-pane fade in">
+                            @{
+                                await Html.RenderPartialAsync("_PaymentAssignment.cshtml");
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" id="Pricelists" class="tab-pane fade">
+                <div class="tab">
+                    <ul class="nav nav-tabs tab">
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#tabPricelistCalling" style="padding: 5px 5px">Calling</a>
+                        </li>
+                        <li><a role="tab" data-toggle="tab" href="#tabPricelistPABX" style="padding: 5px 5px">PABX</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabPricelistCommissions" style="padding: 5px 5px">Commissions</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabPricelistCarriers" style="padding: 5px 5px">Carriers</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabPricelistMVNO" style="padding: 5px 5px">MVNO</a></li>
+                        <li><a role="tab" data-toggle="tab" href="#tabPricelistData" style="padding: 5px 5px">Data</a></li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="tabPricelistCalling" class="tab-pane fade">
+                            <div class="tab">
+                                <ul class="nav nav-tabs tab">
+                                    <li>
+                                        <a role="tab" data-toggle="tab" href="#tabPricelistsCallingCaller" style="padding: 5px 5px">Caller</a>
+                                    </li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistsCallingDestination" style="padding: 5px 5px">Destination</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistsCallingCallPriceList" style="padding: 5px 5px">CallPriceList</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistsCallingCallDiscount" style="padding: 5px 5px">Call Discount</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistsCallingFreeCalls" style="padding: 5px 5px">Free Calls</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistsCallingTranslations" style="padding: 5px 5px">Translations</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistsCallingTimezones" style="padding: 5px 5px">Timezones</a></li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistsCallingSimCard" style="padding: 5px 5px">SimCard</a></li>
+                                </ul>
+                                <div class="tab-content tabs">
+                                    <div role="tabpanel" id="tabPricelistsCallingCaller" class="tab-pane fade in active">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingCaller.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistsCallingDestination" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingDestination.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistsCallingCallPriceList" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingCallPriceList.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistsCallingCallDiscount" class="tab-pane fade in">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingCallDiscount.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistsCallingFreeCalls" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingFreeCalls.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistsCallingTranslations" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingTranslations.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistsCallingTimezones" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingTimezones.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistsCallingSimCard" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistsCallingSimCard.cshtml");
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" id="tabPricelistPABX" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistPABX.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabPricelistCommissions" class="tab-pane fade in">
+                            <div class="tab">
+                                <ul class="nav nav-tabs tab">
+                                    <li>
+                                        <a role="tab" data-toggle="tab" href="#tabPricelistCommDefinition" style="padding: 5px 5px">Definition</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content tabs">
+                                    <div role="tabpanel" id="tabPricelistCommDefinition" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistCommDefinition.cshtml");
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" id="tabPricelistCarriers" class="tab-pane fade">
+                            <div class="tab">
+                                <ul class="nav nav-tabs tab">
+                                    <li>
+                                        <a role="tab" data-toggle="tab" href="#tabPricelistCarriersDestination" style="padding: 5px 5px">Destination</a>
+                                    </li>
+                                    <li><a role="tab" data-toggle="tab" href="#tabPricelistCarriersCallPricelist" style="padding: 5px 5px">CallPricelist</a></li>
+                                </ul>
+                                <div class="tab-content tabs">
+                                    <div role="tabpanel" id="tabPricelistCarriersDestination" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistCarriersDestination.cshtml");
+                                        }
+                                    </div>
+                                    <div role="tabpanel" id="tabPricelistCarriersCallPricelist" class="tab-pane fade">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistCarriersCallPricelist.cshtml");
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" id="tabPricelistMVNO" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistMVNO.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabPricelistData" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/PriceLists/_PricelistData.cshtml");
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" id="tabStock" class="tab-pane fade">
+                <div class="tab">
+                    <ul class="nav nav-tabs tab">
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#StackSimcards" style="padding: 5px 5px">Sim Cards</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="StackSimcards" class="tab-pane fade in active">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/Stock/_StackSimcards.cshtml");
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" id="Log" class="tab-pane fade">
+                <div class="tab">
+                    <ul class="nav nav-tabs tab">
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#LogEvents" style="padding: 5px 5px">Events</a>
+                        </li>
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#LogLog" style="padding: 5px 5px">Log</a>
+                        </li>
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#LogTasks" style="padding: 5px 5px">Tasks</a>
+                        </li>
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#LogPlanning" style="padding: 5px 5px">Planning</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="LogEvents" class="tab-pane fade in active">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/Log/_LogEvents.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="LogLog" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/Log/_LogLog.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="LogTasks" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/Log/_LogTasks.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="LogPlanning" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Home/Log/_LogPlanning.cshtml");
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" id="Reports" class="tab-pane fade">
+                @{
+                    await Html.RenderPartialAsync("~/Views/Home/Report/_Reports.cshtml");
+                }
+            </div>
+
+            <div role="tabpanel" id="Agents" class="tab-pane fade in active">
+                @{
+                    await Html.RenderPartialAsync("~/Views/Home/Agents/_Agents.cshtml");
+                }
+            </div>
+
+            <div role="tabpanel" id="InPlatForm" class="tab-pane fade">
+                <div class="tab">
+                    <ul class="nav nav-tabs tab">
+                        <li>
+                            <a role="tab" data-toggle="tab" href="#InPlateformLoadedFiles" style="padding: 5px 5px">Loaded Files</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="InPlateformLoadedFiles" class="tab-pane fade in active">
+                            <div class="tab">
+                                <ul class="nav nav-pills">
+                                    <li class="active">
+                                        <a role="tab" data-toggle="tab" href="#tabInPlateformLoadedFilesReloadCodes" style="padding: 5px 5px">Reload Codes</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content tabs">
+                                    <div role="tabpanel" id="tabInPlateformLoadedFilesReloadCodes" class="tab-pane fade in active">
+                                        @{
+                                            await Html.RenderPartialAsync("~/Views/Home/InPlatForm/_InPlateformLoadedFilesReloadCodes.cshtml");
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" id="MVNO" class="tab-pane fade in active">
+                @{
+                    await Html.RenderPartialAsync("~/Views/Home/MVNO/_MVNO.cshtml");
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div id="AddUserForm"></div>
+
+<script>
+    $('#btnSearch').on('click', function () {
+            $('#AddUserForm').dialog({
+                autoOpen: true,
+                closeOnEscape: false,
+                position: { my: "center", at: "top+350", of: window },
+                width: "60%",
+                resizable: false,
+                title: 'Address',
+                modal: true,
+                open: function () {
+                    $(this).load('@Url.Action("FindAddress","EditMenu")');
+                }, buttons: {
+                    "Search": function () {
+                        debugger;
+                        SearchCustomer();
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            return false;
+        });
+
+        function SearchCustomer() {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetAddressDetails", "EditMenu")',
+                data: $('#AddressForm').serialize(),
+                success: function (data) {
+                    debugger;
+                    if (data) {
+                        $(':input', '#AddressForm')
+                            .not(':button, :submit, :reset, :hidden')
+                            .val('')
+                            .removeAttr('checked')
+                            .removeAttr('selected');
+                    } else {
+                       // $("#alert_container").append(data);
+                        ShowMessage(data, "Success");
+                    }
+                },
+                failure: function (data) {
+                    alert(data.responseText);
+                },
+                error: function (xhr) {
+                    alert(xhr);
+                }
+            });
+        };
+
+</script>
+
+<style>
+    /*#AddUserForm{
+        position:absolute;
+    }*/
+
+    .DivFindAddress {
+        background-color: aliceblue;
+    }
+
+    Inline style {
+        height: 600px;
+    }
+
+    .messagealert {
+        width: 80%;
+        position: fixed;
+        top: 50px;
+        z-index: 100000;
+        padding: 0;
+        font-size: 15px;
+    }
+
+    .fade {
+        opacity: 1;
+        -webkit-transition: opacity 0.15s linear;
+        -moz-transition: opacity 0.15s linear;
+        -o-transition: opacity 0.15s linear;
+        transition: opacity 0.15s linear;
+    }
+
+     .fade.in {
+         opacity: 1;
+     }
+</style>
+<script>
+    function ShowMessage(message, messagetype) {
+        debugger;
+        var cssclass;
+        switch (messagetype) {
+            case 'Success':
+                cssclass = 'alert-success'
+                break;
+            case 'Error':
+                cssclass = 'alert-danger'
+                break;
+            case 'Warning':
+                cssclass = 'alert-warning'
+                break;
+            default:
+                cssclass = 'alert-info'
+        }
+        $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert fade in ' + cssclass + '"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + messagetype + '!</strong> <span>' + message + '</span></div>');
+
+        setTimeout(function () {
+            $("#alert_div").fadeTo(2000, 500).slideUp(500, function () {
+                $("#alert_div").remove();
+            });
+        }, 10000);//5000=5 seconds
+    }
+</script>

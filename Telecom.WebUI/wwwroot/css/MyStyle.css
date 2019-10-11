@@ -1,0 +1,149 @@
+﻿body {
+    background-color:#ecebe8;
+    color:#545454;
+    font-size:1em;
+}
+header {
+    width: 100%;
+    position: fixed;
+    z-index: 100000006;
+    top: 0;
+    background-color: #93b874;
+}
+
+#header_outer {
+    color: #545454;
+    font: 16px Arial, Helvetica, sans-serif;
+    
+}
+.btnMenu{
+    text-align:center;
+}
+.btnMenu:hover {
+    cursor: pointer;
+    background-color: #678250;
+    font: 16px Arial, Helvetica, sans-serif;
+}
+/*.main-navigation {
+
+}
+#div_loginBackground {*/
+    /*background-image: url('../Images/Login.jpeg');*/
+/*}*/
+#login_Image {
+    background-image: url('../Images/Login_Back.jpg');
+    
+}
+
+    .dropdown-submenu {
+        position: relative;
+    }
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
+
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-submenu > a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #ccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+
+    .dropdown-submenu:hover > a:after {
+        border-left-color: #fff;
+    }
+
+    .dropdown-submenu.pull-left {
+        float: none;
+    }
+    .dropdown-submenu.pull-left > .dropdown-menu {
+        left: -100%;
+        margin-left: 10px;
+        -webkit-border-radius: 6px 0 6px 6px;
+        -moz-border-radius: 6px 0 6px 6px;
+        border-radius: 6px 0 6px 6px;
+    }
+
+.dropdown ul > li > a {
+    color: #475347;
+}
+.dropdown-menu > a {
+    color: #475347;
+}
+.dropdown ul > li > a:hover {
+    /*background-color: #007bff !important;*/
+    background-color: #93b874;
+    color: #ffffff;
+}
+
+.dropdown-menu > a:hover {
+    /*background-color: #007bff !important;*/
+    background-color: #93b874;
+    color:#ffffff;
+}
+.footer_outer {
+    background-color: #93b874;
+    width:100%;
+    height:63px;
+}
+.pb-3, .py-3{
+    padding-top:3rem !important;
+}
+.logout {
+    position: absolute; /*or fixed*/
+    right: 0px;
+}
+#imgLogout{
+    height:30px;
+    width:30px;
+    background-color:#0094ff;
+    border-radius:50%;
+    
+}
+#InvoiceInerContainer {
+    background-color: aliceblue;
+}
+#divShowNoInvoice {
+    padding-left: 20px;
+    
+}
+#BillingCycle {
+    width:45px;
+    float:right;
+}
+#invoiceList {
+    border: solid black 2px;
+    padding-top: 20px;
+    overflow: scroll;
+    height: 25em;
+}
+#Month{
+    width:50px;
+}
+#Year {
+    width: 60px;
+}
+#InvoiceDate{
+    width:80px;
+}
+#divCustomerDetails{
+    padding-top:5px;
+}

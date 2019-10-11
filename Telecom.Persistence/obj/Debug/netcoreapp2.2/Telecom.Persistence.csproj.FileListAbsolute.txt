@@ -1,0 +1,16 @@
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Telecom.Persistence.deps.json
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Telecom.Persistence.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Telecom.Persistence.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\obj\Debug\netcoreapp2.2\Telecom.Persistence.csprojAssemblyReference.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\obj\Debug\netcoreapp2.2\Telecom.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\obj\Debug\netcoreapp2.2\Telecom.Persistence.AssemblyInfoInputs.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\obj\Debug\netcoreapp2.2\Telecom.Persistence.AssemblyInfo.cs
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\obj\Debug\netcoreapp2.2\Telecom.Persistence.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\obj\Debug\netcoreapp2.2\Telecom.Persistence.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Telecom.Application.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Telecom.Domain.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Telecom.Application.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Telecom.Domain.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\obj\Debug\netcoreapp2.2\Telecom.Persistence.csproj.CopyComplete
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Persistence\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.ViewFeatures.xml

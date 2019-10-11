@@ -1,0 +1,77 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<script>
+    $(document).ready(function () {
+        $('#InvoicGrouping').on('change', function () {
+            if ($(this).is(":checked")) {
+                $('#ShowNoInvoice').prop('disabled', false);
+            }
+            else {
+                $('#ShowNoInvoice').prop('disabled', true);
+            }
+                
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="checkbox" id="CallsData" checked="checked" name="CallsData" value="Calls/Data" />
+        <label for="CallsData"><b>Calls/Data</b></label>
+    </div><br />
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="checkbox" checked="checked" name="GeneralItems" id="GeneralItems" value="General Items" />
+        <label for="GeneralItems"><b>General Items</b></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="checkbox" checked="checked" name="CallDiscounts" id="CallDiscounts" value="Call Disocunts" />
+        <label for="CallDiscounts"><b>Call Disocunts</b></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="checkbox" checked="checked" name="InvoicGrouping" id="InvoicGrouping" value="Invoice Grouping" />
+        <label for="InvoicGrouping"><b>Invoice Grouping</b></label>
+        <div id="divShowNoInvoice">
+            <input type="checkbox" checked="checked" name="ShowNoInvoice" id="ShowNoInvoice" value="Show no Invoice" />
+            <label for="ShowNoInvoice"><b>Show no Invoice</b></label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="checkbox" checked="checked" name="CreateBankFile" id="CreateBankFile" value="Create Bank file" />
+        <label for="CreateBankFile"><b>Create Bank file</b></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="checkbox" checked="checked" name="CreateZeroInvoices" id="CreateZeroInvoices" value="Create Zero invoices" />
+        <label for="CreateZeroInvoices"><b>Create Zero invoices</b></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <input type="checkbox" name="ShowInvoicegroupCustomerOnReport" id="ShowInvoicegroupCustomerOnReport" value="Show Invoicegroup/Customer on report" />
+        <label for="ShowInvoicegroupCustomerOnReport"><b>Show Invoicegroup/Customer on report</b></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="checkbox" name="AssignAutomaticalyPayments" id="AssignAutomaticalyPayments" value="Assign automaticaly payments" />
+        <label for="AssignAutomaticalyPayments"><b>Assign automaticaly payments</b></label>
+    </div>
+</div>
+
+
+
+
+
+
+
+

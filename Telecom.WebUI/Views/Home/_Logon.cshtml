@@ -1,0 +1,108 @@
+﻿@model Telecom.Application.ViewModels.DefaultViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Task</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Response</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Total Task</td>
+                        <td>@Model.UserTask.TotalTasks</td>
+                        <td>@Model.ResponseTask.TotalResponseTasks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Deadline today</td>
+                        <td>@Model.UserTask.DeadlineTasks</td>
+                        <td>@Model.ResponseTask.DeadlineResponseTasks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Due Deadline</td>
+                        <td>@Model.UserTask.OverDeadlineTasks</td>
+                        <td>@Model.ResponseTask.OverDeadlineResponseTasks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>No Deadline</td>
+                        <td>@Model.UserTask.NoDeadlineDates</td>
+                        <td>@Model.ResponseTask.NoDeadlineDatesResponseTask</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Appointments Today</td>
+                        <td>@Model.UserTask.AppointmentTasks</td>
+                        <td>@Model.ResponseTask.AppointmentResponseTasks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>Due Appointments</td>
+                        <td>@Model.UserTask.OverAppointmentTasks</td>
+                        <td>@Model.ResponseTask.OverAppointmentResponseTasks</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>No appointments</td>
+                        <td>@Model.UserTask.NoAppointmentDates</td>
+                        <td>@Model.ResponseTask.NoAppointmentDatesResponseTask</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <div>
+                Helpdesk during UAT<br />
+                TEL: +34 603 000 097<br />
+                GSM:
+                <p>E-MAIL: </p>
+            </div>
+            <div>
+                You are logged on as user on computer:<br />
+                <div style="background-color:lightblue">@Model.UserName</div>
+                Version<br />
+                Database:
+
+                @if (Model.DatabaseState)
+                {
+                    @Html.DropDownListFor(x=>x.SeletedDatabase,new SelectList(Model.DatabaseName,"Value","Text"),
+                         htmlAttributes: new { @class = "form-control", id = "DatabaseName", @disabled = "disabled" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(x=>x.SeletedDatabase,new SelectList(Model.DatabaseName,"Value","Text"),
+                         htmlAttributes: new { @class = "form-control", id = "DatabaseName"})
+                }
+
+                <br />
+
+            </div>
+        </div>
+        <div class="col-sm-8" id="login_Image">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#DatabaseName').on("change", function () {
+            $.ajax({
+                url: '/Home/GetSelectDatabase?DatabaseName=' + $('#DatabaseName option:selected').text(),
+                type: 'GET',
+                data: "",
+                contentType: 'application/json; charset=utf-8',
+                error: function () {
+                    alert("Error to connect database");
+                }
+            });
+        });
+
+    });
+</script>

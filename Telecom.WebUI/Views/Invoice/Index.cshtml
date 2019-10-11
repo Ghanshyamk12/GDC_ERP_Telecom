@@ -1,0 +1,210 @@
+﻿
+@model Telecom.Application.ViewModels.InvoicingSelectionViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutMenu.cshtml";
+}
+
+
+<link href="~/css/priorityscroll.css" rel="stylesheet" />
+<script src="~/js/priorityscrolling.js"></script>
+
+
+<script>
+
+    var hdnflag = $('#hdnCheck').val();
+    if (hdnflag == 0) {
+        $('#liLoanApp').addClass("active");
+    }
+
+    $(document).ready(function () {
+        //$("ul.housetab").on("click", "li", function () {
+        //    var url = $(this).find("span.viewpath").text();
+        //    //var url = "/HouseLoan/Loan";
+        //    $.get(url, function (data) {
+        //        $("#contacts").html(data);
+        //    });
+        //});
+        $("ul li").on("click", function () {
+            $("ul li").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+
+</script>
+@{
+    string[] sTabs = new string[] { };
+    if (ViewBag.TabsToDisplay != null)
+    {
+        sTabs = ViewBag.TabsToDisplay as string[];
+    }
+    int Check = 0;
+}
+
+
+<div class="container" id="InvoiceInerContainer">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="row">
+                <div id="invoiceList">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="tab">
+                <div id="priorityscroll">
+                    <ul class="nav nav-tabs tab" id="MyTabs">
+                        <li id="liSelection" class="active"><a class="active" role="tab" data-toggle="tab" href="#tabSelection">Selection</a></li>
+                        <li id="liInvoiceOptions" class=""><a role="tab" data-toggle="tab" href="#tabInvoiceOptions">Invoice Options</a></li>
+                        <li id="liPrintOptions" class=""><a role="tab" data-toggle="tab" href="#tabPrintOptions">Print Options</a></li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="tabSelection" class="tab-pane fade active show">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Invoice/InvoiceTab/_Selection.cshtml", Model);
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabInvoiceOptions" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Invoice/InvoiceTab/_InvoiceOptions.cshtml");
+                            }
+                        </div>
+                        <div role="tabpanel" id="tabPrintOptions" class="tab-pane fade">
+                            @{
+                                await Html.RenderPartialAsync("~/Views/Invoice/InvoiceTab/_PrintOptions.cshtml");
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+    </div>
+    <br /><br />
+    <div class="row">
+            <div class="col-sm-3">
+                <input type="button" value="Execute" class="btn btn-success" id="btnExecute"/>
+            </div>
+            <div class="col-sm-3">
+                <input type="button" value="Simulate invoicing" class="btn btn-success"/>
+            </div>
+            <div class="col-sm-3">
+                <input type="button" value="Stop" class="btn btn-success"/>
+            </div>
+            <div class="col-sm-3">
+                <input type="button" value="Cancel" class="btn btn-success"/>
+            </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#btnExecute").on('click', function () {
+            debugger;
+            CheckInput();
+        });
+
+        function CheckInput() {
+            var CheckResult = false;
+            var InvoiceInvoice = 40;
+            var InvoiceCallValue = 732;
+            //---------------------Verified General Items----------------------------//
+            if ($('#CallsData').is(':checked') || $('#GeneralItems').is(':checked') ||
+                $('#InviceInvoicing').is(':checked') == false)
+                CheckResult = true;
+            else {
+                alert('You need to select an itemtype in order to invoice');
+                $('#CallsData').focus();
+                return;
+            }
+            var count = 0;
+
+            //----------------------Verified customer is selected--------------------//
+            $('tbody tr td input[type="checkbox"]').each(function () {
+                if ($(this).is(':checked'))
+                    count++;
+            });
+            if (count == 0) {
+                alert('You need to select at least one customer');
+                return;
+            }
+
+            //---------------------Verified company is selected--------------------//
+            if ($('#Company') == "" || $('#Company') == undefined) {
+                alert('You need to select a company');
+                return;
+            }
+
+            //-----------------------Verified Invoice Create Option selected----------//
+            if ($('#InvoiceOption') == "" || $('#InvoiceOption') == undefined) {
+                alert('Blank input is not allowed !');
+                $('#InvoiceOption').focus();
+                return;
+            }
+
+            if ($('#InvoiceCallPrintType') == "" || $('#InvoiceCallPrintType') == undefined) {
+                alert('Blank input is not allowed !');
+                $('#InvoiceCallPrintType').focus();
+                return;
+            }
+
+            //sgFPrefixFile is pending
+
+            //----------------Invoice Type---------------------------
+            var i = undefined;
+            if ($('#InviceInvoicing').is(':checked'))
+                i = InvoiceInvoice;
+            else
+                i = InvoiceCallValue;
+
+            var compValue = $('#Company').val();
+            var lastInvoiceDate = null;
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetInvoiceLastDate","Invoice")',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'text',
+                async: false,
+                data: { iValue: i, company: compValue },
+                success: function (data) {
+                    lastInvoiceDate = data;
+                },
+                error: function (xhr) {
+                    alert(xhr);
+                }, failure: function (data) {
+                    alert(data.responseText);
+                }
+            });
+            alert(lastInvoiceDate);
+            debugger;
+            if (lastInvoiceDate != null) {
+                if ($('#GenerateOneOffInvoice').is(':checked')) {
+                    if (Date.parse($('#InvoiceDate').val()) < Date.parse(lastInvoiceDate)) {
+                        CheckResult = false;
+                        $('#InvoiceDate').val(Date.parse(lastInvoiceDate));
+                        alert('Error, No last invoicedate found');
+                        return;
+                    } else {
+                        CheckResult = true;
+                    }
+                } else {
+                    CheckResult = true;
+                }
+            } else {
+                alert('Error, No last invoicedate found');
+                return;
+            }   
+
+            if (CheckResult) {
+                if (confirm("1. Are you sure you want to invoice with the current options ?    2. Please do not forget to uncheck split billing cmrs!           3.Ello Voedselteamsquery")) {
+                            
+                } else {
+                    return;
+                }
+            }
+        }
+    });
+</script>

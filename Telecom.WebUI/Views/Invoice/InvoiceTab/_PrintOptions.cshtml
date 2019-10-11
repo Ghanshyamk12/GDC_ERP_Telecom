@@ -1,0 +1,40 @@
+﻿@model Telecom.Application.ViewModels.InvoicingSelectionViewModel;
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="row">
+    <div class="col-sm-6">
+        <b>Print Type</b>
+        @Html.DropDownListFor(x=>x.SelectedInvoiceOption,new SelectList(Model.InvoiceOption,"Value","Text"),
+               htmlAttributes:new {@class="form-control",id= "InvoiceCallPrintType" })
+        @Html.ValidationMessageFor(x => x.SelectedInvoiceOption, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-sm-6">
+        <input type="checkbox" checked="checked" name="CallsData" value="Exclude Mobile" id="CallsData"/> 
+        <label for="CallsData"><b>Exclude Mobile</b></label>
+    </div>
+</div>
+<br />
+<div class="container" style="background-color:aliceblue">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8">
+            <div class="tab">
+                <div id="priorityscroll">
+                    <ul class="nav nav-tabs tab" id="MyTabs">
+                        <li id="liSelection" class="active"><a class="active" role="tab" data-toggle="tab" href="#tabInvoiceMemo">Invoice Memo</a></li>
+                        <li id="liInvoiceOptions" class=""><a role="tab" data-toggle="tab" href="#tabInvoiceMemoPrefix">Invoice Memo/Prefix</a></li>
+                    </ul>
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" id="tabInvoiceMemo" class="tab-pane fade active show">
+                        </div>
+                        <div role="tabpanel" id="tabInvoiceMemoPrefix" class="tab-pane fade">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

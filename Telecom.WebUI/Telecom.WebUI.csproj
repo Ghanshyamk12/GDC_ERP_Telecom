@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.3.1" />
+    <PackageReference Include="jQuery" Version="3.4.1" />
+    <PackageReference Include="jQuery.UI" Version="1.12.1.1" />
+    <PackageReference Include="Lib.AspNetCore.Mvc.JqGrid.Helper" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Telecom.Common\Telecom.Common.csproj" />
+    <ProjectReference Include="..\Telecom.Infrastructure\Telecom.Infrastructure.csproj" />
+    <ProjectReference Include="..\Telecom.Persistence\Telecom.Persistence.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Views\Technical\" />
+  </ItemGroup>
+
+</Project>

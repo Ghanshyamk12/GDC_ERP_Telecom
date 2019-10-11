@@ -1,0 +1,16 @@
+﻿@model List<Telecom.Application.ViewModels.InvoiceGrid>
+
+
+<table id="tblInvoiceGrid">
+    <tbody>
+        @foreach (var invoiceGrid in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" value="@invoiceGrid.AddressNbr" id="check@(invoiceGrid.AddressNbr)"  checked />
+                </td>
+                <td><label for="check@(invoiceGrid.AddressNbr)">@invoiceGrid.AddressNbr--@invoiceGrid.Name--@invoiceGrid.BillCycle</label></td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,9 @@
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\bin\Debug\netcoreapp2.2\Telecom.Common.deps.json
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\bin\Debug\netcoreapp2.2\Telecom.Common.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\bin\Debug\netcoreapp2.2\Telecom.Common.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\obj\Debug\netcoreapp2.2\Telecom.Common.csproj.CoreCompileInputs.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\obj\Debug\netcoreapp2.2\Telecom.Common.AssemblyInfoInputs.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\obj\Debug\netcoreapp2.2\Telecom.Common.AssemblyInfo.cs
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\obj\Debug\netcoreapp2.2\Telecom.Common.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\obj\Debug\netcoreapp2.2\Telecom.Common.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Common\obj\Debug\netcoreapp2.2\Telecom.Common.csprojAssemblyReference.cache

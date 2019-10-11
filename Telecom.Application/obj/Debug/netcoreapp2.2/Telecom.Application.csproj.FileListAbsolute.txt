@@ -1,0 +1,14 @@
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\bin\Debug\netcoreapp2.2\Telecom.Application.deps.json
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\bin\Debug\netcoreapp2.2\Telecom.Application.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\bin\Debug\netcoreapp2.2\Telecom.Application.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\obj\Debug\netcoreapp2.2\Telecom.Application.csprojAssemblyReference.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\obj\Debug\netcoreapp2.2\Telecom.Application.csproj.CoreCompileInputs.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\obj\Debug\netcoreapp2.2\Telecom.Application.AssemblyInfoInputs.cache
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\obj\Debug\netcoreapp2.2\Telecom.Application.AssemblyInfo.cs
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\obj\Debug\netcoreapp2.2\Telecom.Application.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\obj\Debug\netcoreapp2.2\Telecom.Application.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\bin\Debug\netcoreapp2.2\Telecom.Domain.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\bin\Debug\netcoreapp2.2\Telecom.Domain.pdb
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\obj\Debug\netcoreapp2.2\Telecom.Application.csproj.CopyComplete
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+C:\Users\SHYAM\source\repos\GDC_ERP_Telecom\Telecom.Application\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.ViewFeatures.xml

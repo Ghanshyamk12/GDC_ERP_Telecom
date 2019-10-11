@@ -1,0 +1,238 @@
+﻿@model Telecom.Application.ViewModels.InvoicingSelectionViewModel;
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <b>InvoiceType :</b>
+                    @*@Html.RadioButtonFor()*@
+                    @foreach (var invoicingType in Model.InvoiceType)
+                    {
+                        if (@invoicingType == "Invoicing")
+                        {
+                            <input type="radio" asp-for="SelectedInvoiceType" value="@invoicingType" id="Invice@(invoicingType)" checked />
+                            <label for="Invice@(invoicingType)">@invoicingType :</label>
+                        }
+                        else
+                        {
+                            <input type="radio" asp-for="SelectedInvoiceType" value="@invoicingType" id="Invice@(invoicingType)"/>
+                            <label for="Invice@(invoicingType)">@invoicingType :</label>
+                        }
+
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <label id="lblBillingCycle"><b>Bill cycle :</b></label>
+                    <input asp-for="BillingCycle" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <b>Company</b>
+                @Html.DropDownListFor(x=>x.SelectedCompany,new SelectList(Model.Company,"Value","Text"),
+               htmlAttributes:new { @class="form-control",id="Company"})
+                @Html.ValidationMessageFor(x => x.SelectedCompany, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <b>Invoice creation options :</b>
+                @Html.DropDownListFor(x=>x.SelectedInvoiceOption,new SelectList(Model.InvoiceOption,"Value","Text"),
+               htmlAttributes:new {@class="form-control",id="InvoiceOption" })
+                @Html.ValidationMessageFor(x => x.SelectedInvoiceOption, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <div class="col-sm-9">
+                    <b>From: </b>
+                    <div>
+                        <input asp-for="FromFilter"/>
+                    </div>
+                    <b>To:</b>
+                    <div>
+                        <input asp-for="ToFilter" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <button id="find" class="btn btn-success">Find</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-9">
+                    Active:
+                    <div>
+                        @foreach (var item in Model.Action)
+                        {
+                            if (@item == "Check")
+                            {
+                                <input type="radio" value="@item" asp-for="SelectedAction" id="Action@(item)" checked />@item
+                            }
+                            else
+                            {
+                                <input type="radio" value="@item" asp-for="SelectedAction" id="Action@(item)" />@item
+                            }
+
+                        }
+
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <button id="Save" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-10">
+                    <input type="checkbox" value="MaxDate" asp-for="ExcludePricingFrom" />
+                    <label for="ExcludePricingFrom"><b>Execlude pricings as from:</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label asp-for="Month"><b>Month: </b> </label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Month" />
+                </div>
+                <div class="col-sm-2">
+                    <label asp-for="Year"><b>Year:</b> </label>
+                </div>
+                <div class="col-sm-3">
+                    <input asp-for="Year" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <b>Create Invoice Options</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="InvoiceDate"><b>Invoice Date: </b></label>
+                </div>
+                <div class="col-sm-6">
+                    <input asp-for="InvoiceDate" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10">
+                    <input type="checkbox" asp-for="GenerateRecurringInvoice" checked="checked" />
+                    <label for="GenerateRecurringInvoice"><b>Generate Recurring Invoice</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <input type="checkbox" asp-for="GenerateOneOffInvoice" id="GenerateOneOffInvoice" value="GenerateOneOffInvoice"/>
+                    <label for="GenerateOneOffInvoice"><b>Generate OneOff Invoice</b></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <b>Find user in customer list</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <input asp-for="FindCustomer" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="submit" id="btnSelectAll" value="Select all" class="btn btn-success" />
+                </div>
+                <div class="col-sm-6">
+                    <input type="submit" id="btnUnSelectAll" value="Unselect all" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#Company').on("change", function () {
+            //alert(this.value);
+            var bilCycle = $('#BillingCycle').val();
+            if (bilCycle == undefined || bilCycle == "") {
+                alert('Bill cycle not be blank');
+                $('#Company').val('');
+                return;
+            }
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetInvoice", "Invoice")',
+                data: {
+                    companyName: "ACN AT",
+                    checkRecurringInvoice: true,
+                    billingCycle: "23",
+                    chbExcludeMobile: true
+                    },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (data) {
+                  //  alert('Success');
+                    $("#invoiceList").html(data);
+                }
+                ,
+                failure: function (data) {
+                    alert(data.responseText);
+                },//End of AJAX failure function
+                error: function (xhr) {
+                    alert('error');
+                }//End of AJAX Error function
+            });
+        });
+
+        $('#BillingCycle').on("change", function () {
+            //alert(this.value);
+            if (this.value < 1 || this.value > 31) {
+                $('#BillingCycle').val('23');
+                alert('wrong billing Cycle value');
+                return;
+            }
+        })
+
+        $('#btnUnSelectAll').on('click', function () {
+            $('tbody tr td input[type="checkbox"]').each(function () {
+                $(this).prop('checked', false);
+            });
+        });
+
+        $('#btnSelectAll').on('click', function () {
+            $('tbody tr td input[type="checkbox"]').each(function () {
+                $(this).prop('checked', true);
+            });
+        });
+
+        $('#find').on('click', function () {
+            var fromValue = $('#FromFilter').val();
+            
+            var toValue = $('#ToFilter').val();
+            
+            var activeStatus = null,disactiveStatus;
+            if ($('#ActionCheck').is(':checked')) {
+                activeStatus = true;
+            } else
+                activeStatus = false;
+
+            if (activeStatus)
+                disactiveStatus = false;
+            else
+                disactiveStatus = true;
+
+            $('tbody tr td input[type="checkbox"]').each(function () {
+                
+                if ($(this).val() >= fromValue && $(this).val() <= toValue) {
+
+                    $(this).prop('checked', activeStatus);
+                } else {
+                    $(this).prop('checked', disactiveStatus);
+                }
+            });
+
+
+        });
+    })
+</script>
